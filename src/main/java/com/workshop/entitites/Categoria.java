@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 //COLEÇÕES NÃO FAZEM PARTE DOS CONSTRUTORES SOMENTE DEVEM TER GET E SET
 
 @Entity // ENTIDADE DE DOMINIO
@@ -28,6 +30,7 @@ public class Categoria implements Serializable {
 	private String nome;
 
 	//COLEÇÃO PRODUTOS
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 

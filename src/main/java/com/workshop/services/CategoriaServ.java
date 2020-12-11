@@ -2,6 +2,7 @@ package com.workshop.services;
 
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,6 @@ import com.workshop.repositories.CategoriaRepo;
 ///INSTACIAR REPOSITORIO DA CLASSE
 ///NÃO ESQUECER DAS ANOTAÇÕES SERVICE E AUTOWIRED
 
-
 @Service
 public class CategoriaServ {
 
@@ -21,8 +21,8 @@ public class CategoriaServ {
 
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = categoriarepo.findById(id);
-		return obj.orElse(null);
-
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName(),"Deu ruim"));
 	}
 
 }
