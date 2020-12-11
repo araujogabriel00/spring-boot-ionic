@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.workshop.entitites.Categoria;
+import com.workshop.entitites.Cidade;
+import com.workshop.entitites.Estado;
 import com.workshop.entitites.Produto;
 import com.workshop.repositories.CategoriaRepo;
+import com.workshop.repositories.CidadeRepo;
+import com.workshop.repositories.EstadoRepo;
 import com.workshop.repositories.ProdutoRepo;
 
 ///CLASSE DE APLICAÇÃO
@@ -27,6 +31,12 @@ public class WorkshopApplication implements CommandLineRunner {
 	@Autowired
 	private ProdutoRepo produtorepo;
 
+	@Autowired
+	private EstadoRepo estadorepo;
+
+	@Autowired
+	private CidadeRepo cidaderepo;
+
 	public static void main(String[] args) {
 		SpringApplication.run(WorkshopApplication.class, args);
 	}
@@ -40,17 +50,29 @@ public class WorkshopApplication implements CommandLineRunner {
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
 		Produto p3 = new Produto(null, "Mouse", 80.00);
-		
+
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+
+		Cidade cd1 = new Cidade(null, "Uberlandia", est1);
+		Cidade cd2 = new Cidade(null, "São Paulo", est2);
+		Cidade cd3 = new Cidade(null, "Campinas", est2);
+
 		p1.getCategorias().addAll(Arrays.asList(cat1));
-		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
-		
-		
-		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2));
 
 		categoriarepo.saveAll(Arrays.asList(cat1, cat2));
 		produtorepo.saveAll(Arrays.asList(p1, p2, p3));
+
+		est1.getCidades().addAll(Arrays.asList(cd1));
+		est2.getCidades().addAll(Arrays.asList(cd2, cd3));
+
+		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
+		cat2.getProdutos().addAll(Arrays.asList(p2));
+
+		estadorepo.saveAll(Arrays.asList(est1, est2));
+		cidaderepo.saveAll(Arrays.asList(cd1, cd2, cd3));
 
 	}
 
