@@ -9,10 +9,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.workshop.entitites.Categoria;
 import com.workshop.entitites.Cidade;
+import com.workshop.entitites.Cliente;
+import com.workshop.entitites.Endereco;
 import com.workshop.entitites.Estado;
 import com.workshop.entitites.Produto;
+import com.workshop.enums.TipoCliente;
 import com.workshop.repositories.CategoriaRepo;
 import com.workshop.repositories.CidadeRepo;
+import com.workshop.repositories.ClienteRepo;
 import com.workshop.repositories.EstadoRepo;
 import com.workshop.repositories.ProdutoRepo;
 
@@ -37,6 +41,9 @@ public class WorkshopApplication implements CommandLineRunner {
 	@Autowired
 	private CidadeRepo cidaderepo;
 
+	@Autowired
+	private ClienteRepo clienterepo;
+
 	public static void main(String[] args) {
 		SpringApplication.run(WorkshopApplication.class, args);
 	}
@@ -58,6 +65,14 @@ public class WorkshopApplication implements CommandLineRunner {
 		Cidade cd2 = new Cidade(null, "São Paulo", est2);
 		Cidade cd3 = new Cidade(null, "Campinas", est2);
 
+		Cliente cli = new Cliente(null, "Gabriel de Araujo", "gabriel.araujos@sempreceub.com", "051.251.921.80",
+				TipoCliente.PESSOAFISICA);
+		cli.getTelefones().addAll(Arrays.asList("993783203", "992944643"));
+
+		Endereco e1 = new Endereco(null, "Rua dos Burracos", "38", "MR 11", "Setor Sul", "73753010", cli, cd2);
+
+		cli.getEnderecos().addAll(Arrays.asList(e1));
+
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
@@ -73,6 +88,7 @@ public class WorkshopApplication implements CommandLineRunner {
 
 		estadorepo.saveAll(Arrays.asList(est1, est2));
 		cidaderepo.saveAll(Arrays.asList(cd1, cd2, cd3));
+		clienterepo.saveAll(Arrays.asList(cli));
 
 	}
 
