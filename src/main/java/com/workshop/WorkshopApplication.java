@@ -1,5 +1,6 @@
 package com.workshop;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.workshop.enums.TipoCliente;
 import com.workshop.repositories.CategoriaRepo;
 import com.workshop.repositories.CidadeRepo;
 import com.workshop.repositories.ClienteRepo;
+import com.workshop.repositories.EnderecoRepo;
 import com.workshop.repositories.EstadoRepo;
 import com.workshop.repositories.ProdutoRepo;
 
@@ -43,6 +45,9 @@ public class WorkshopApplication implements CommandLineRunner {
 
 	@Autowired
 	private ClienteRepo clienterepo;
+	
+	@Autowired
+	private EnderecoRepo enderecorepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(WorkshopApplication.class, args);
@@ -89,6 +94,7 @@ public class WorkshopApplication implements CommandLineRunner {
 		estadorepo.saveAll(Arrays.asList(est1, est2));
 		cidaderepo.saveAll(Arrays.asList(cd1, cd2, cd3));
 		clienterepo.saveAll(Arrays.asList(cli));
+		enderecorepo.saveAll(Arrays.asList(e1));
 
 	}
 
