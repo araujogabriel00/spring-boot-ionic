@@ -95,6 +95,8 @@ public class WorkshopApplication implements CommandLineRunner {
 
 		Pagamento pgto1 = new PagamentoCartão(null, EstadoPagamento.QUITADO, pd1, 6);
 		
+		/////////////sdafsdfafa
+		
 		//GET E SET
 		pd1.setPagamento(pgto1);
 		cli.getEnderecos().addAll(Arrays.asList(e1));
