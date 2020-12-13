@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
@@ -12,6 +14,7 @@ import javax.persistence.Table;
 import com.workshop.enums.EstadoPagamento;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) // Mapeamento herança
 @Table(name = "pagamento")
 public class Pagamento implements Serializable {
 
@@ -20,7 +23,7 @@ public class Pagamento implements Serializable {
 	@Id
 	private Integer id;
 
-	private EstadoPagamento estadopagamento;
+	private Integer estadopagamento;
 
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
@@ -34,7 +37,7 @@ public class Pagamento implements Serializable {
 	public Pagamento(Integer id, EstadoPagamento estadopagamento, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estadopagamento = estadopagamento;
+		this.estadopagamento = estadopagamento.getCod();
 		this.pedido = pedido;
 	}
 
@@ -47,11 +50,11 @@ public class Pagamento implements Serializable {
 	}
 
 	public EstadoPagamento getEstadopagamento() {
-		return estadopagamento;
+		return EstadoPagamento.toEnum(estadopagamento);
 	}
 
 	public void setEstadopagamento(EstadoPagamento estadopagamento) {
-		this.estadopagamento = estadopagamento;
+		this.estadopagamento = estadopagamento.getCod();
 	}
 
 	public Pedido getPedido() {

@@ -1,5 +1,6 @@
 package com.workshop;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,19 @@ import com.workshop.entitites.Cidade;
 import com.workshop.entitites.Cliente;
 import com.workshop.entitites.Endereco;
 import com.workshop.entitites.Estado;
+import com.workshop.entitites.Pagamento;
+import com.workshop.entitites.PagamentoCartão;
+import com.workshop.entitites.Pedido;
 import com.workshop.entitites.Produto;
+import com.workshop.enums.EstadoPagamento;
 import com.workshop.enums.TipoCliente;
 import com.workshop.repositories.CategoriaRepo;
 import com.workshop.repositories.CidadeRepo;
 import com.workshop.repositories.ClienteRepo;
 import com.workshop.repositories.EnderecoRepo;
 import com.workshop.repositories.EstadoRepo;
+import com.workshop.repositories.PagamentoRepo;
+import com.workshop.repositories.PedidoRepo;
 import com.workshop.repositories.ProdutoRepo;
 
 ///CLASSE DE APLICAÇÃO
@@ -44,9 +51,15 @@ public class WorkshopApplication implements CommandLineRunner {
 
 	@Autowired
 	private ClienteRepo clienterepo;
-	
+
 	@Autowired
 	private EnderecoRepo enderecorepo;
+
+	@Autowired
+	private PedidoRepo pedidorepo;
+
+	@Autowired
+	private PagamentoRepo pagamentorepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(WorkshopApplication.class, args);
@@ -54,7 +67,8 @@ public class WorkshopApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		
+		//INSTANCIAÇÃO OBJS
 		Categoria cat1 = new Categoria(null, "Informatica");
 		Categoria cat2 = new Categoria(null, "Escritorio");
 
@@ -75,25 +89,41 @@ public class WorkshopApplication implements CommandLineRunner {
 
 		Endereco e1 = new Endereco(null, "Rua dos Burracos", "38", "MR 11", "Setor Sul", "73753010", cli, cd2);
 
+		SimpleDateFormat sdf = new SimpleDateFormat(("dd/MM/yyyy HH:mm"));
+
+		Pedido pd1 = new Pedido(null, sdf.parse("12/12/2020 20:11"), cli, e1);
+
+		Pagamento pgto1 = new PagamentoCartão(null, EstadoPagamento.QUITADO, pd1, 6);
+		
+		//GET E SET
+		pd1.setPagamento(pgto1);
 		cli.getEnderecos().addAll(Arrays.asList(e1));
+		cli.getPedidos().addAll(Arrays.asList(pd1));
 
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 
-		categoriarepo.saveAll(Arrays.asList(cat1, cat2));
-		produtorepo.saveAll(Arrays.asList(p1, p2, p3));
-
 		est1.getCidades().addAll(Arrays.asList(cd1));
 		est2.getCidades().addAll(Arrays.asList(cd2, cd3));
 
-		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2));
+		
+		///SALVAR REPOSITORIOS
+		categoriarepo.saveAll(Arrays.asList(cat1, cat2));
+
+		produtorepo.saveAll(Arrays.asList(p1, p2, p3));
 
 		estadorepo.saveAll(Arrays.asList(est1, est2));
+
 		cidaderepo.saveAll(Arrays.asList(cd1, cd2, cd3));
+
 		clienterepo.saveAll(Arrays.asList(cli));
+
 		enderecorepo.saveAll(Arrays.asList(e1));
+
+		pedidorepo.saveAll(Arrays.asList(pd1));
+
+		pagamentorepo.saveAll(Arrays.asList(pgto1));
 
 	}
 

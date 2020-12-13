@@ -1,7 +1,9 @@
 package com.workshop.entitites;
 
-import com.workshop.enums.EstadoPagamento;
+import javax.persistence.Entity;
 
+import com.workshop.enums.EstadoPagamento;
+@Entity
 public class PagamentoCartão extends Pagamento {
 
 	private static final long serialVersionUID = 1L;
