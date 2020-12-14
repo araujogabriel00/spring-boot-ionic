@@ -13,6 +13,7 @@ import com.workshop.entitites.Cidade;
 import com.workshop.entitites.Cliente;
 import com.workshop.entitites.Endereco;
 import com.workshop.entitites.Estado;
+import com.workshop.entitites.ItemPedido;
 import com.workshop.entitites.Pagamento;
 import com.workshop.entitites.PagamentoCartão;
 import com.workshop.entitites.Pedido;
@@ -24,6 +25,7 @@ import com.workshop.repositories.CidadeRepo;
 import com.workshop.repositories.ClienteRepo;
 import com.workshop.repositories.EnderecoRepo;
 import com.workshop.repositories.EstadoRepo;
+import com.workshop.repositories.ItemPedidoRepo;
 import com.workshop.repositories.PagamentoRepo;
 import com.workshop.repositories.PedidoRepo;
 import com.workshop.repositories.ProdutoRepo;
@@ -61,14 +63,17 @@ public class WorkshopApplication implements CommandLineRunner {
 	@Autowired
 	private PagamentoRepo pagamentorepo;
 
+	@Autowired
+	private ItemPedidoRepo itemPedidoRepo;
+
 	public static void main(String[] args) {
 		SpringApplication.run(WorkshopApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-		//INSTANCIAÇÃO OBJS
+
+		// INSTANCIAÇÃO OBJS
 		Categoria cat1 = new Categoria(null, "Informatica");
 		Categoria cat2 = new Categoria(null, "Escritorio");
 
@@ -94,23 +99,25 @@ public class WorkshopApplication implements CommandLineRunner {
 		Pedido pd1 = new Pedido(null, sdf.parse("12/12/2020 20:11"), cli, e1);
 
 		Pagamento pgto1 = new PagamentoCartão(null, EstadoPagamento.QUITADO, pd1, 6);
-		
-		/////////////sdafsdfafa
-		
-		//GET E SET
+
+		ItemPedido itemPedido = new ItemPedido(pd1, p1, 0.00, 1, 2000.00);
+
+		// GET E SET
 		pd1.setPagamento(pgto1);
 		cli.getEnderecos().addAll(Arrays.asList(e1));
 		cli.getPedidos().addAll(Arrays.asList(pd1));
+		pd1.getItens().addAll(Arrays.asList(itemPedido));
 
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
+		p1.getItens().addAll(Arrays.asList(itemPedido));
 
 		est1.getCidades().addAll(Arrays.asList(cd1));
 		est2.getCidades().addAll(Arrays.asList(cd2, cd3));
 
-		
-		///SALVAR REPOSITORIOS
+		/// SALVAR REPOSITORIOS
+
 		categoriarepo.saveAll(Arrays.asList(cat1, cat2));
 
 		produtorepo.saveAll(Arrays.asList(p1, p2, p3));
@@ -127,6 +134,7 @@ public class WorkshopApplication implements CommandLineRunner {
 
 		pagamentorepo.saveAll(Arrays.asList(pgto1));
 
+		itemPedidoRepo.saveAll(Arrays.asList(itemPedido));
 	}
 
 }
