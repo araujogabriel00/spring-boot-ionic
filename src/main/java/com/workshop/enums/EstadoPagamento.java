@@ -1,7 +1,8 @@
 package com.workshop.enums;
 
+///ENTIDADE DE TIPO OU ESTADO
 public enum EstadoPagamento {
-
+	
 	PENDENTE(1, "PENDENTE"), QUITADO(2, "QUITADO"), CANCELADO(3, "CANCELADO");
 
 	private int cod;
@@ -28,6 +29,8 @@ public enum EstadoPagamento {
 		this.descricao = descricao;
 	}
 
+	//VERIFICAÇÃO DE CODIGO INVALIDO
+	//TRAZ MAIOR SEGURANÇA A POSSÍVEIS MANUTEÇÕES
 	public static EstadoPagamento toEnum(Integer cod) {
 
 		if (cod == null) {

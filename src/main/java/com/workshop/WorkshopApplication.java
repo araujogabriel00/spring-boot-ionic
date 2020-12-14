@@ -39,6 +39,10 @@ import com.workshop.repositories.ProdutoRepo;
 @SpringBootApplication
 public class WorkshopApplication implements CommandLineRunner {
 
+	///TODAS AS CLASSE QUE NECESSITAM ALGUM TIPO DE SALVAMENTO PRECISAM DE UM REPOSITORIO
+	///AS CLASSE REPOSITORIO DEVEM CONTER A ANOTAÇÃO @Autowired
+
+	
 	@Autowired
 	private CategoriaRepo categoriarepo;
 
@@ -70,6 +74,7 @@ public class WorkshopApplication implements CommandLineRunner {
 		SpringApplication.run(WorkshopApplication.class, args);
 	}
 
+	///METODO GERADO APÓS A IMPLEMENTAÇÃO DO COMMANDLINNERUNNER
 	@Override
 	public void run(String... args) throws Exception {
 

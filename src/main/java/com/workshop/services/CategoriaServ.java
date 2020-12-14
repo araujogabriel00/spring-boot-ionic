@@ -22,7 +22,16 @@ public class CategoriaServ {
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = categoriarepo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName(),"Deu ruim"));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName(), "Deu ruim"));
 	}
+
+	//INSERIR UMA CATEGORIA
+	public Categoria insert(Categoria categoria) {
+		categoria.setId(null);
+		return categoriarepo.save(categoria);
+	}
+	
+	
+	
 
 }

@@ -12,37 +12,44 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //COLEÇÕES NÃO FAZEM PARTE DOS CONSTRUTORES SOMENTE DEVEM TER GET E SET
 
-@Entity // ENTIDADE DE DOMINIO
-@Table(name = "categoria")
-public class Categoria implements Serializable {
+@Entity // ENTIDADE DE DOMINIO -> DEMOSTRA QUE ESSA ENTIDADE DEVE APARECER NO BD
+@Table(name = "categoria") // NOME DA TABELA NO BD
+public class Categoria implements Serializable { // TODAS AS ENTIDADES QUE NÃO SEJAM FRACAS DEVEM IMPLEMENTAR O
+													// SERIALIZABLE
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id /// ID DA CLASSE
+	@GeneratedValue(strategy = GenerationType.IDENTITY) /// O QUE ESSA VAIRIAVEL IRÁ FAZER
 	private Integer id;
 
-	@Column(name = "nome") // COLUNA
+	@Column(name = "nome") // NOME DA COLUNA NO BANCO DE DADOS
 	private String nome;
 
-	//COLEÇÃO PRODUTOS
-	@JsonManagedReference
-	@ManyToMany(mappedBy = "categorias")
-	private List<Produto> produtos = new ArrayList<>();
+	// COLEÇÃO PRODUTOS
+	@JsonIgnore /// USAR PARA NÃO TER REFERÊNCIA CICLICAS
+	@ManyToMany(mappedBy = "categorias") /// COMO SERÁ O RELACIONAMENTO DAS ENTIDADES ESTANCIADAS E QUEM ESTÁ MAPEANDO
+											/// DO OUTRO LADO
+	private List<Produto> produtos = new ArrayList<>();/// COLEÇÃO NÃO DEVEM SER INCLUIDAS NOS CONSTRUTORES SOMENTEA
+														/// GETS E SETS
 
+	//CONSTRUTOR VAZIO
 	public Categoria() {
 
 	}
 
+	//CONSTRUTOR PADRAO
 	public Categoria(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
+	
+	////GETS E SETS
 
 	public Integer getId() {
 		return id;
@@ -58,7 +65,18 @@ public class Categoria implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+
 	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	// HASH CODE E EQUALS
 
 	@Override
 	public int hashCode() {
@@ -89,19 +107,6 @@ public class Categoria implements Serializable {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Categoria [id=" + id + ", nome=" + nome + "]";
-	}
-
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
 	}
 
 }
