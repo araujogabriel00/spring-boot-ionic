@@ -25,13 +25,16 @@ public class CategoriaServ {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName(), "Deu ruim"));
 	}
 
-	//INSERIR UMA CATEGORIA
+	// INSERIR UMA CATEGORIA
 	public Categoria insert(Categoria categoria) {
 		categoria.setId(null);
 		return categoriarepo.save(categoria);
 	}
-	
-	
-	
+
+	// ATUALIZAR UMA CATEGORIA
+	public Categoria update(Categoria categoria) {
+		find(categoria.getId());
+		return categoriarepo.save(categoria);
+	}
 
 }

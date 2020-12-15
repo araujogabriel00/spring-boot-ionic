@@ -33,6 +33,7 @@ public class CategoriaResource {
 
 	}
 
+	// FAZER A NOVA CATEGORIA VIR COM UM NOVO ID
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> insert(@RequestBody Categoria categoria) {
 		categoria = categoriaserv.insert(categoria);
@@ -42,6 +43,15 @@ public class CategoriaResource {
 
 		return ResponseEntity.created(uri).build();
 
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable Integer id) {
+
+		categoria.setId(id);
+		categoria = categoriaserv.update(categoria);
+
+		return ResponseEntity.noContent().build();
 	}
 
 }
