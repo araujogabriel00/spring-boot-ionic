@@ -39,10 +39,10 @@ import com.workshop.repositories.ProdutoRepo;
 @SpringBootApplication
 public class WorkshopApplication implements CommandLineRunner {
 
-	///TODAS AS CLASSE QUE NECESSITAM ALGUM TIPO DE SALVAMENTO PRECISAM DE UM REPOSITORIO
-	///AS CLASSE REPOSITORIO DEVEM CONTER A ANOTAÇÃO @Autowired
+	/// TODAS AS CLASSE QUE NECESSITAM ALGUM TIPO DE SALVAMENTO PRECISAM DE UM
+	/// REPOSITORIO
+	/// AS CLASSE REPOSITORIO DEVEM CONTER A ANOTAÇÃO @Autowired
 
-	
 	@Autowired
 	private CategoriaRepo categoriarepo;
 
@@ -74,13 +74,15 @@ public class WorkshopApplication implements CommandLineRunner {
 		SpringApplication.run(WorkshopApplication.class, args);
 	}
 
-	///METODO GERADO APÓS A IMPLEMENTAÇÃO DO COMMANDLINNERUNNER
+	/// METODO GERADO APÓS A IMPLEMENTAÇÃO DO COMMANDLINNERUNNER
 	@Override
 	public void run(String... args) throws Exception {
 
 		// INSTANCIAÇÃO OBJS
 		Categoria cat1 = new Categoria(null, "Informatica");
 		Categoria cat2 = new Categoria(null, "Escritorio");
+		Categoria cat3 = new Categoria(null, "Video Games");
+		Categoria cat4 = new Categoria(null, "Eletrodomesticos");
 
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -123,7 +125,7 @@ public class WorkshopApplication implements CommandLineRunner {
 
 		/// SALVAR REPOSITORIOS
 
-		categoriarepo.saveAll(Arrays.asList(cat1, cat2));
+		categoriarepo.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
 
 		produtorepo.saveAll(Arrays.asList(p1, p2, p3));
 
