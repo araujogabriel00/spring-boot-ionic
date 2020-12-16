@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 //COLEÇÕES NÃO FAZEM PARTE DOS CONSTRUTORES SOMENTE DEVEM TER GET E SET
 
 @Entity // ENTIDADE DE DOMINIO -> DEMOSTRA QUE ESSA ENTIDADE DEVE APARECER NO BD
@@ -31,11 +29,9 @@ public class Categoria implements Serializable { // TODAS AS ENTIDADES QUE NÃO 
 	private String nome;
 
 	// COLEÇÃO PRODUTOS
-	@JsonIgnore /// USAR PARA NÃO TER REFERÊNCIA CICLICAS
-	@ManyToMany(mappedBy = "categorias") /// COMO SERÁ O RELACIONAMENTO DAS ENTIDADES ESTANCIADAS E QUEM ESTÁ MAPEANDO
-											/// DO OUTRO LADO
+	@ManyToMany(mappedBy = "categorias") /// COMO SERÁ O RELACIONAMENTO DAS ENTIDADES ESTANCIADAS E QUEM ESTÁ MAPEANDO							
 	private List<Produto> produtos = new ArrayList<>();/// COLEÇÃO NÃO DEVEM SER INCLUIDAS NOS CONSTRUTORES SOMENTEA
-														/// GETS E SETS
+														
 
 	//CONSTRUTOR VAZIO
 	public Categoria() {

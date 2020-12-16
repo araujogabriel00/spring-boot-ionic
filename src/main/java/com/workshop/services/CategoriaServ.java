@@ -1,5 +1,6 @@
 package com.workshop.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.ObjectNotFoundException;
@@ -49,6 +50,11 @@ public class CategoriaServ {
 
 		}
 
+	}
+
+	/// ACHAR TODAS AS CATEGORIAS
+	public List<Categoria> findAll() {
+		return categoriarepo.findAll();
 	}
 
 }

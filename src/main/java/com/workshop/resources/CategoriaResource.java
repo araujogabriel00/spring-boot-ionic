@@ -1,6 +1,8 @@
 package com.workshop.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.workshop.dto.CategoriaDTO;
 import com.workshop.entitites.Categoria;
 import com.workshop.services.CategoriaServ;
 
@@ -45,6 +48,7 @@ public class CategoriaResource {
 
 	}
 
+	// ATUALIZAR CATEGORIA
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable Integer id) {
 
@@ -54,10 +58,23 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	// DELETAR CATEGORIA
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		categoriaserv.delete(id);
 		return ResponseEntity.noContent().build();
+
+	}
+
+	// MOSTRAR TODAS AS CATEGORIAS
+	//BUSCA E CONVERTE A LISTA EM DTO´S
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> lista = categoriaserv.findAll();
+
+		//CONVERSÃO DE LISTA EM OUTRA LISTA
+		List<CategoriaDTO> listaDTO = lista.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listaDTO);
 
 	}
 
