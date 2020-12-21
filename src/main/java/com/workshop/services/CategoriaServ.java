@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.workshop.dto.CategoriaDTO;
 import com.workshop.entitites.Categoria;
 import com.workshop.repositories.CategoriaRepo;
 import com.workshop.resources.DataIntegrityException;
@@ -67,6 +68,13 @@ public class CategoriaServ {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 
 		return categoriarepo.findAll(pageRequest);
+
+	}
+
+	///INSTACIA UMA CATEGORIA APARTIR DE UM DTO
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 
 	}
 

@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -38,22 +40,23 @@ public class CategoriaResource {
 
 	}
 
-	// FAZER A NOVA CATEGORIA VIR COM UM NOVO ID
+	/// FAZER A NOVA CATEGORIA VIR COM UM NOVO ID
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestBody Categoria categoria) {
-		categoria = categoriaserv.insert(categoria);
-
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId())
-				.toUri();
+	public ResponseEntity<?> insert(@Valid @RequestBody CategoriaDTO categoriaDTO) {
+		Categoria obj = categoriaserv.fromDTO(categoriaDTO);
+		obj = categoriaserv.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 
 	}
 
 	// ATUALIZAR CATEGORIA
+	//UTILIZANDO BEAN VALIDATION
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id) {
 
+		Categoria categoria = categoriaserv.fromDTO(categoriaDTO);
 		categoria.setId(id);
 		categoria = categoriaserv.update(categoria);
 
@@ -68,8 +71,8 @@ public class CategoriaResource {
 
 	}
 
-	// MOSTRAR TODAS AS CATEGORIAS
-	// BUSCA E CONVERTE A LISTA EM DTO´S
+	/// MOSTRAR TODAS AS CATEGORIAS
+	/// BUSCA E CONVERTE A LISTA EM DTO´S
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
 		List<Categoria> lista = categoriaserv.findAll();
@@ -80,7 +83,7 @@ public class CategoriaResource {
 
 	}
 
-	// 
+	/// PAGINAÇÃO COM PARAMETROS OPCIONAIS NA REQUISIÇÃO
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -89,13 +92,6 @@ public class CategoriaResource {
 		Page<Categoria> lista = categoriaserv.findPage(page, linesPerPage, orderBy, direction);
 		Page<CategoriaDTO> listaDTO = lista.map(obj -> new CategoriaDTO(obj));
 		return ResponseEntity.ok().body(listaDTO);
-
 	}
-	
-	
-	
-	
-	
-	
 
 }
