@@ -52,7 +52,7 @@ public class CategoriaResource {
 	}
 
 	// ATUALIZAR CATEGORIA
-	//UTILIZANDO BEAN VALIDATION
+	// UTILIZANDO BEAN VALIDATION
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id) {
 
