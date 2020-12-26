@@ -1,4 +1,4 @@
-package com.workshop.enums;
+ package com.workshop.enums;
 ///Controle do codigo atribuido a cada valor
 public enum TipoCliente {
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.workshop.dto.ClienteDTO;
+import com.workshop.dto.ClienteNewDTO;
 import com.workshop.entitites.Cliente;
 import com.workshop.services.ClienteServ;
 
@@ -41,15 +42,16 @@ public class ClienteResource {
 	}
 
 	/// FAZER A NOVA CATEGORIA VIR COM UM NOVO ID
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@Valid @RequestBody ClienteDTO clienteDTO) {
-		Cliente obj = clienteserv.fromDTO(clienteDTO);
-		obj = clienteserv.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+	/// FAZER A NOVA CATEGORIA VIR COM UM NOVO ID
+		@RequestMapping(method = RequestMethod.POST)
+		public ResponseEntity<?> insert(@Valid @RequestBody ClienteNewDTO clienteNewDTO) {
+			Cliente obj = clienteserv.fromDTO(clienteNewDTO);
+			obj = clienteserv.insert(obj);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
-		return ResponseEntity.created(uri).build();
+			return ResponseEntity.created(uri).build();
 
-	}
+		}
 
 	// ATUALIZAR CATEGORIA
 	// UTILIZANDO BEAN VALIDATION

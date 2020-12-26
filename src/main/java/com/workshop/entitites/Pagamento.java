@@ -39,7 +39,7 @@ public class Pagamento implements Serializable {
 	public Pagamento(Integer id, EstadoPagamento estadopagamento, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estadopagamento = estadopagamento.getCod();
+		this.estadopagamento = (estadopagamento == null) ? null : estadopagamento.getCod();
 		this.pedido = pedido;
 	}
 

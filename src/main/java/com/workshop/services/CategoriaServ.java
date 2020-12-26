@@ -40,8 +40,14 @@ public class CategoriaServ {
 
 	// ATUALIZAR UMA CATEGORIA
 	public Categoria update(Categoria categoria) {
-		find(categoria.getId());
-		return categoriarepo.save(categoria);
+		Categoria newCategoria = find(categoria.getId());
+		updateData(newCategoria, categoria);
+		return categoriarepo.save(newCategoria);
+	}
+
+	private void updateData(Categoria newCategoria, Categoria categoria) {
+		newCategoria.setNome(categoria.getNome());
+
 	}
 
 	// DELETAR UMA CATEGORIA
@@ -71,7 +77,7 @@ public class CategoriaServ {
 
 	}
 
-	///INSTACIA UMA CATEGORIA APARTIR DE UM DTO
+	/// INSTACIA UMA CATEGORIA APARTIR DE UM DTO
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 
 		return new Categoria(objDTO.getId(), objDTO.getNome());
