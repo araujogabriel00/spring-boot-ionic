@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -35,7 +36,7 @@ public class Cliente implements Serializable {
 	private Integer tipo;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)//QUANDO A REGRA DE NEGOCIO DEIXAR APAGAR EM CASCATA USA-SE O CASCADE
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	// UM DOS MODOS DE INSTACIAÇÃO PARA UMA ENTIDADE FRACA COMO O TELEFONE
