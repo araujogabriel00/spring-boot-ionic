@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.workshop.enums.TipoCliente;
 
 @Entity
@@ -29,14 +29,15 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
 	private String nome;
+
+	@Column(unique = true) // USA PARA NÃO OCORRER REPETIÇÕES DE DETERMINADOS CAMPOS
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
 
-	@JsonManagedReference
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)//QUANDO A REGRA DE NEGOCIO DEIXAR APAGAR EM CASCATA USA-SE O CASCADE
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) // QUANDO A REGRA DE NEGOCIO DEIXAR APAGAR EM CASCATA
+	// USA-SE O CASCADE
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	// UM DOS MODOS DE INSTACIAÇÃO PARA UMA ENTIDADE FRACA COMO O TELEFONE

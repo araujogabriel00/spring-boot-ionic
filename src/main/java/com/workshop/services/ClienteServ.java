@@ -101,7 +101,6 @@ public class ClienteServ {
 		Cliente cli = new Cliente(null, clienteNewDTO.getNome(), clienteNewDTO.getEmail(), clienteNewDTO.getCpfOUcnpj(),
 				TipoCliente.toEnum(clienteNewDTO.getTipo()));
 		Cidade cid = new Cidade(clienteNewDTO.getCidadeID(), null, null);
-
 		Endereco end = new Endereco(null, clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(),
 				clienteNewDTO.getComplemento(), clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cli, cid);
 

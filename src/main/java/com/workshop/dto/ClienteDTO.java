@@ -8,19 +8,22 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.workshop.entitites.Cliente;
+import com.workshop.services.validation.ClienteUpdate;
 
 //DEFINIR OS DADOS QUE TRAFEGARAM QUANDO FOREM FEITAS OPERAÇÕES BÁSICAS DA CLASSE EM QUESTÃO
+
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	//Validação sintática com Bean Validation - BACKEND
+	// Validação sintática com Bean Validation - BACKEND
 	@NotEmpty(message = "Preechimento Obrigatório")
 	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 80 caracteres")
 	private String nome;
 
 	private Integer id;
-	
+
 	@NotEmpty(message = "Preechimento Obrigatório")
 	@Email(message = "Email inválido")
 	private String email;
