@@ -71,6 +71,7 @@ public class DBservice {
 		Categoria cat2 = new Categoria(null, "Escritorio");
 		Categoria cat3 = new Categoria(null, "Video Games");
 		Categoria cat4 = new Categoria(null, "Eletrodomesticos");
+		Categoria cat5 = new Categoria(null, "Computadores");
 		
 	
 
@@ -115,7 +116,7 @@ public class DBservice {
 
 		/// SALVAR REPOSITORIOS
 
-		categoriarepo.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
+		categoriarepo.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5));
 
 		produtorepo.saveAll(Arrays.asList(p1, p2, p3));
 
