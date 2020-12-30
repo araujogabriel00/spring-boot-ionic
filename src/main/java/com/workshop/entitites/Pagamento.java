@@ -12,12 +12,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.workshop.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // Mapeamento herança
 @Table(name = "pagamento")
-public class Pagamento implements Serializable {
+//ADICIONA UM CAMPO QUE TERÁ O NOME TYPE
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY,property = "@type")
+public abstract class Pagamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
