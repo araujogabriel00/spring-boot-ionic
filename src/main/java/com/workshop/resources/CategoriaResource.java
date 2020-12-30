@@ -84,6 +84,7 @@ public class CategoriaResource {
 	}
 
 	/// PAGINAÇÃO COM PARAMETROS OPCIONAIS NA REQUISIÇÃO
+	///O sistema informa os nomes de todas categorias ordenadamente
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
