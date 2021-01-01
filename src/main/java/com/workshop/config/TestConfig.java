@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.workshop.services.DBservice;
+import com.workshop.services.EmailService;
+import com.workshop.services.MockMailService;
 
 @Configuration
 @Profile("test") // SERÃO EXECUTADAS APENAS AS OPERAÇÕES QUE ESTIVEREM NO PERFIL DE TESTE
@@ -34,4 +36,11 @@ public class TestConfig {
 
 	}
 
+	@Bean
+	public EmailService emailService() {
+		return new MockMailService();
+	}
+	
+	
+	
 }
