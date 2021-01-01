@@ -1,6 +1,8 @@
 package com.workshop.entitites;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -53,7 +55,6 @@ public class ItemPedido implements Serializable {
 		return id.getPedido();
 	}
 
-
 	public Produto getProduto() {
 		return id.getProduto();
 	}
@@ -89,7 +90,20 @@ public class ItemPedido implements Serializable {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		builder.append(getProduto().getNome());
+		builder.append(" Quantidade: ");
+		builder.append(getQuantidade());
+		builder.append(", Preço Unitário: ");
+		builder.append(nf.format(getPreco()));
+		builder.append(", Subtottal: ");
+		builder.append(nf.format(getSubTotal()));
+		builder.append("\n");
+		return builder.toString();
+	}
 
 }
