@@ -19,6 +19,7 @@ import com.workshop.entitites.PagamentoCartão;
 import com.workshop.entitites.Pedido;
 import com.workshop.entitites.Produto;
 import com.workshop.enums.EstadoPagamento;
+import com.workshop.enums.Perfil;
 import com.workshop.enums.TipoCliente;
 import com.workshop.repositories.CategoriaRepo;
 import com.workshop.repositories.CidadeRepo;
@@ -90,11 +91,18 @@ public class DBservice {
 		Cidade cd2 = new Cidade(null, "São Paulo", est2);
 		Cidade cd3 = new Cidade(null, "Campinas", est2);
 
-		Cliente cli = new Cliente(null, "Gabriel de Araujo", "gabriel.araujos@sempreceub.com", "051.251.921.80",
-				TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("93783203"));
-		cli.getTelefones().addAll(Arrays.asList("993783203", "992944643"));
+		Cliente cli = new Cliente(null, "João da Silva", "joao@gmail.com", "334.375.450-19",
+				TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("5555"));
+		cli.getTelefones().addAll(Arrays.asList("993665656", "9954654645"));
+		
+		Cliente cli1 = new Cliente(null, "Maria Souza", "maria@gmail.com", "333.991.030-85",
+				TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("2222"));
+		cli1.getTelefones().addAll(Arrays.asList("993983241", "995465465"));
+		cli1.addPerfil(Perfil.ADMIN);
+		
 
 		Endereco e1 = new Endereco(null, "Rua dos Burracos", "38", "MR 11", "Setor Sul", "73753010", cli, cd2);
+		Endereco e2 = new Endereco(null, "Buritis II", "16", "Quadra 3", "Setor Sul", "7165165", cli1, cd1);
 
 		SimpleDateFormat sdf = new SimpleDateFormat(("dd/MM/yyyy HH:mm"));
 
@@ -108,6 +116,7 @@ public class DBservice {
 		pd1.setPagamento(pgto1);
 		cli.getEnderecos().addAll(Arrays.asList(e1));
 		cli.getPedidos().addAll(Arrays.asList(pd1));
+		cli1.getEnderecos().addAll(Arrays.asList(e2));
 		pd1.getItens().addAll(Arrays.asList(itemPedido));
 
 		p1.getCategorias().addAll(Arrays.asList(cat1));
@@ -128,9 +137,9 @@ public class DBservice {
 
 		cidaderepo.saveAll(Arrays.asList(cd1, cd2, cd3));
 
-		clienterepo.saveAll(Arrays.asList(cli));
+		clienterepo.saveAll(Arrays.asList(cli, cli1));
 
-		enderecorepo.saveAll(Arrays.asList(e1));
+		enderecorepo.saveAll(Arrays.asList(e1,e2));
 
 		pedidorepo.saveAll(Arrays.asList(pd1));
 
