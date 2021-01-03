@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.workshop.dto.ClienteDTO;
@@ -30,6 +31,9 @@ import com.workshop.resources.DataIntegrityException;
 @Service
 public class ClienteServ {
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder; 
+	
 	@Autowired
 	private ClienteRepo clienterepo;
 
@@ -93,13 +97,13 @@ public class ClienteServ {
 
 	/// INSTANCIAÇÃO DO CLIENTE APARTIR DO DTO
 	public Cliente fromDTO(ClienteDTO clienteDTO) {
-		return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
+		return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null,null);
 
 	}
 
 	public Cliente fromDTO(ClienteNewDTO clienteNewDTO) {
 		Cliente cli = new Cliente(null, clienteNewDTO.getNome(), clienteNewDTO.getEmail(), clienteNewDTO.getCpfOUcnpj(),
-				TipoCliente.toEnum(clienteNewDTO.getTipo()));
+				TipoCliente.toEnum(clienteNewDTO.getTipo()),bCryptPasswordEncoder.encode(clienteNewDTO.getSenha()));
 		Cidade cid = new Cidade(clienteNewDTO.getCidadeID(), null, null);
 		Endereco end = new Endereco(null, clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(),
 				clienteNewDTO.getComplemento(), clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cli, cid);

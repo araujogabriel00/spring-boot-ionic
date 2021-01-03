@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.workshop.entitites.Categoria;
@@ -37,6 +38,9 @@ public class DBservice {
 	/// AS CLASSE REPOSITORIO DEVEM CONTER A ANOTAÇÃO @Autowired
 	/// CLASSE EXCLUSIVA PARA INSTACIAMENTO DOS OBJETOS NO BANCO DE DADOS
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Autowired
 	private CategoriaRepo categoriarepo;
 
@@ -87,7 +91,7 @@ public class DBservice {
 		Cidade cd3 = new Cidade(null, "Campinas", est2);
 
 		Cliente cli = new Cliente(null, "Gabriel de Araujo", "gabriel.araujos@sempreceub.com", "051.251.921.80",
-				TipoCliente.PESSOAFISICA);
+				TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("93783203"));
 		cli.getTelefones().addAll(Arrays.asList("993783203", "992944643"));
 
 		Endereco e1 = new Endereco(null, "Rua dos Burracos", "38", "MR 11", "Setor Sul", "73753010", cli, cd2);
