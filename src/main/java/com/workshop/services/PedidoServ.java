@@ -3,18 +3,22 @@ package com.workshop.services;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.workshop.entitites.Cliente;
 import com.workshop.entitites.ItemPedido;
 import com.workshop.entitites.PagamentoBoleto;
 import com.workshop.entitites.Pedido;
 import com.workshop.enums.EstadoPagamento;
+import com.workshop.exceptions.AuthorizationException;
 import com.workshop.repositories.ItemPedidoRepo;
 import com.workshop.repositories.PagamentoRepo;
 import com.workshop.repositories.PedidoRepo;
+import com.workshop.security.UserSS;
 
 ///RESPONSAVEL POR PASSAR AS CATEGORIAS AOS CONTROLADORES REST
 ///INSTACIAR REPOSITORIO DA CLASSE
@@ -40,7 +44,7 @@ public class PedidoServ {
 
 	@Autowired
 	private ProdutoServ produtoServ;
-	
+
 	@Autowired
 	private EmailService emailService;
 
@@ -50,7 +54,7 @@ public class PedidoServ {
 
 	}
 
-	@Transactional
+
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
@@ -78,6 +82,19 @@ public class PedidoServ {
 		return obj;
 
 	}
+
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+
+		if (user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente = clienteServ.find(user.getID());
+		return pedidoRepo.findBycliente(cliente, pageRequest);
+
+	}
+
 }
 // USAR TRANSACTIONAL NO INSERT
 // USAR PEDIDO SERVICE NÃO REPOSITORY

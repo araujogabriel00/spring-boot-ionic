@@ -16,6 +16,8 @@ public interface ClienteRepo extends JpaRepository<Cliente, Integer> {
 	@Transactional(readOnly = true)
 	Cliente findByEmail(String email);
 
-	// CONFERIR CODIGO ORIGINAL NO GIT HUB
+	
+
+	
 
 }
