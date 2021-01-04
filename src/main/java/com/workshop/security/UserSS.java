@@ -32,7 +32,8 @@ public class UserSS implements UserDetails {
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
-		this.authorities = perfil.stream().map(x  -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toSet());
+		this.authorities = perfil.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao()))
+				.collect(Collectors.toSet());
 	}
 
 	@Override
@@ -75,6 +76,11 @@ public class UserSS implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public boolean hasRole(Perfil admin) {
+
+		return getAuthorities().contains(new SimpleGrantedAuthority(admin.getDescricao()));
 	}
 
 }

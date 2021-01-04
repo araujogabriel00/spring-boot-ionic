@@ -19,10 +19,13 @@ import com.workshop.dto.ClienteNewDTO;
 import com.workshop.entitites.Cidade;
 import com.workshop.entitites.Cliente;
 import com.workshop.entitites.Endereco;
+import com.workshop.enums.Perfil;
 import com.workshop.enums.TipoCliente;
+import com.workshop.exceptions.AuthorizationException;
 import com.workshop.repositories.ClienteRepo;
 import com.workshop.repositories.EnderecoRepo;
 import com.workshop.resources.DataIntegrityException;
+import com.workshop.security.UserSS;
 
 ///RESPONSAVEL POR PASSAR AS CATEGORIAS AOS CONTROLADORES REST
 ///INSTACIAR REPOSITORIO DA CLASSE
@@ -32,8 +35,8 @@ import com.workshop.resources.DataIntegrityException;
 public class ClienteServ {
 
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder; 
-	
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	@Autowired
 	private ClienteRepo clienterepo;
 
@@ -41,6 +44,11 @@ public class ClienteServ {
 	private EnderecoRepo enderecoRepository;
 
 	public Cliente find(Integer id) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getID())) {
+			throw new AuthorizationException("Acesso negado");
+
+		}
 		Optional<Cliente> obj = clienterepo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName(), "Deu ruim"));
@@ -97,13 +105,13 @@ public class ClienteServ {
 
 	/// INSTANCIAÇÃO DO CLIENTE APARTIR DO DTO
 	public Cliente fromDTO(ClienteDTO clienteDTO) {
-		return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null,null);
+		return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null, null);
 
 	}
 
 	public Cliente fromDTO(ClienteNewDTO clienteNewDTO) {
 		Cliente cli = new Cliente(null, clienteNewDTO.getNome(), clienteNewDTO.getEmail(), clienteNewDTO.getCpfOUcnpj(),
-				TipoCliente.toEnum(clienteNewDTO.getTipo()),bCryptPasswordEncoder.encode(clienteNewDTO.getSenha()));
+				TipoCliente.toEnum(clienteNewDTO.getTipo()), bCryptPasswordEncoder.encode(clienteNewDTO.getSenha()));
 		Cidade cid = new Cidade(clienteNewDTO.getCidadeID(), null, null);
 		Endereco end = new Endereco(null, clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(),
 				clienteNewDTO.getComplemento(), clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cli, cid);
