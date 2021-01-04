@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,7 @@ public class CategoriaResource {
 
 	/// FAZER A NOVA CATEGORIA VIR COM UM NOVO ID
 	@RequestMapping(method = RequestMethod.POST)
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<?> insert(@Valid @RequestBody CategoriaDTO categoriaDTO) {
 		Categoria obj = categoriaserv.fromDTO(categoriaDTO);
 		obj = categoriaserv.insert(obj);
@@ -54,6 +56,7 @@ public class CategoriaResource {
 	// ATUALIZAR CATEGORIA
 	// UTILIZANDO BEAN VALIDATION
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id) {
 
 		Categoria categoria = categoriaserv.fromDTO(categoriaDTO);
@@ -65,6 +68,7 @@ public class CategoriaResource {
 
 	// DELETAR CATEGORIA
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		categoriaserv.delete(id);
 		return ResponseEntity.noContent().build();
@@ -84,7 +88,7 @@ public class CategoriaResource {
 	}
 
 	/// PAGINAÇÃO COM PARAMETROS OPCIONAIS NA REQUISIÇÃO
-	///O sistema informa os nomes de todas categorias ordenadamente
+	/// O sistema informa os nomes de todas categorias ordenadamente
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
