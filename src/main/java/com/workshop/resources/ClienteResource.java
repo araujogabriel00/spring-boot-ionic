@@ -43,6 +43,12 @@ public class ClienteResource {
 
 	}
 
+	@RequestMapping(value = "/email", method = RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@RequestParam(value = "value") String email) {
+		Cliente obj = clienteserv.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
+	}
+
 	/// FAZER A NOVA CATEGORIA VIR COM UM NOVO ID
 	/// FAZER A NOVA CATEGORIA VIR COM UM NOVO ID
 	@RequestMapping(method = RequestMethod.POST)

@@ -109,6 +109,20 @@ public class ClienteServ {
 		return clienterepo.findAll();
 	}
 
+	public Cliente findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		Cliente obj = clienterepo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getID() + ", Tipo: " + Cliente.class.getName(), email);
+		}
+		return obj;
+	}
+
 	/// USAR PARA BUSCA CONTROLADA PARA ECONOMIA DE MEMÓRIA
 	/// PAGINAÇÃO
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
