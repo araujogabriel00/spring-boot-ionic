@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.workshop.exceptions.FileException;
-
+//RESPONAVEL PELO UPLOAD NO BUCKET DA AMAZON
 @Service
 public class S3Service {
 

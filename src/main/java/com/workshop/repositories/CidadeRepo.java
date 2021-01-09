@@ -18,7 +18,7 @@ import com.workshop.entitites.Cidade;
 public interface CidadeRepo extends JpaRepository<Cidade, Integer> {
 
 	@Transactional(readOnly=true)
-	@Query("SELECT obj FROM Cidade obj WHERE obj.estado.id = :estadoId ORDER BY obj.nome")
+	@Query("SELECT obj FROM Cidade obj WHERE obj.estado.id = :estadoId ORDER BY obj.nome")//COMO SERÁ FEITA BUSCA DAS CIDADE ATRAVES DA ID DO ESTADO NO BANCO DE DADOS
 	public List<Cidade> findCidades(@Param("estadoId") Integer estado_id);
 
 }

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.workshop.enums.EstadoPagamento;
 
 @Entity
-@JsonTypeName("PagamentoBoleto")
+@JsonTypeName("PagamentoBoleto") ///VALOR DA SUBCLASSE PARA INSTACIAÇÃO APARTIR DE DADOS JSON
 public class PagamentoBoleto extends Pagamento {
 
 	private static final long serialVersionUID = 1L;

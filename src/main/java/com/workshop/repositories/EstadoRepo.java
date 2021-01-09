@@ -18,7 +18,7 @@ import com.workshop.entitites.Estado;
 public interface EstadoRepo extends JpaRepository<Estado, Integer> {
 	
 	@Transactional(readOnly = true)
-	public List<Estado>findAllByOrderByNome();
+	public List<Estado>findAllByOrderByNome();///BUSCA DE ESTADO ORDENADA POR NOME
 	
 	
 	

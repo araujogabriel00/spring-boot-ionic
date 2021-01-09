@@ -1,5 +1,5 @@
 package com.workshop.enums;
-
+//DEFINE QUAIS OS TIPOS DE PERFIS QUE OS USUARIOS PODERÃO TER 
 public enum Perfil {
 
 	ADMIN(1, "ROLE_ADMIN"), CLIENTE(2, "ROLE_CLIENTE");

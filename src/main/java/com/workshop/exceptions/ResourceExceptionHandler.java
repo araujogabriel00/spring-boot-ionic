@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.workshop.resources.DataIntegrityException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
-	@ExceptionHandler(ObjectNotFoundException.class)
+	@ExceptionHandler(ObjectNotFoundException.class)//OBJETO REQUISITADO NÃO ENCONTRADO
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),
@@ -26,7 +25,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
 
-	@ExceptionHandler(DataIntegrityException.class)
+	@ExceptionHandler(DataIntegrityException.class)//ERRO NA INTEGRIDADE DOS DADOS
 	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
 
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
@@ -34,7 +33,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ExceptionHandler(MethodArgumentNotValidException.class)//ERRO DE VALIDAÇÃO
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
 
 		ValidationError err = new ValidationError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(),
@@ -45,7 +44,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
 	}
 
-	@ExceptionHandler(AuthorizationException.class)
+	@ExceptionHandler(AuthorizationException.class)///ACESSO NEGADO
 	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
 
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Acesso negado",
@@ -53,7 +52,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 	}
 
-	@ExceptionHandler(FileException.class)
+	@ExceptionHandler(FileException.class)//ERRO DE ARQUIVO
 	public ResponseEntity<StandardError> file(FileException e, HttpServletRequest request) {
 
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
@@ -61,7 +60,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
-	@ExceptionHandler(AmazonServiceException.class)
+	@ExceptionHandler(AmazonServiceException.class)//ERRO NO AMAZON SERVICE
 	public ResponseEntity<StandardError> amazonService(AmazonServiceException e, HttpServletRequest request) {
 
 		HttpStatus code = HttpStatus.valueOf(e.getErrorCode());
@@ -70,7 +69,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(code).body(err);
 	}
 
-	@ExceptionHandler(AmazonClientException.class)
+	@ExceptionHandler(AmazonClientException.class)///ERRO NO AMAZON CLIENTE
 	public ResponseEntity<StandardError> amazonClient(AmazonClientException e, HttpServletRequest request) {
 
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
@@ -78,7 +77,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
-	@ExceptionHandler(AmazonS3Exception.class)
+	@ExceptionHandler(AmazonS3Exception.class)///NO S3/BUCKET
 	public ResponseEntity<StandardError> amazonS3(AmazonS3Exception e, HttpServletRequest request) {
 
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Erro S3",

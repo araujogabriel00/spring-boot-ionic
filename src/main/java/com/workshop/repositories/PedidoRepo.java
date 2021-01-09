@@ -18,6 +18,6 @@ import com.workshop.entitites.Pedido;
 public interface PedidoRepo extends JpaRepository<Pedido, Integer> {
 
 	@Transactional(readOnly = true)
-	Page<Pedido> findBycliente(Cliente cliente, Pageable pageRequest);
+	Page<Pedido> findBycliente(Cliente cliente, Pageable pageRequest); ///BUSCAR O PEDIDO ATRAVES DO CLIENTE
 
 }

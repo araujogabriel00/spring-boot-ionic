@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.workshop.dto.CredenciaisDTO;
 import com.workshop.resources.utils.JWTUtil;
 
+
+//FILTRO DE AUTENTICAÇÃO
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private AuthenticationManager authenticationManager;

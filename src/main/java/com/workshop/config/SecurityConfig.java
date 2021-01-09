@@ -24,7 +24,7 @@ import com.workshop.security.JWTAuthenticationFilter;
 import com.workshop.security.JWTAuthorizationFilter;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity//ANOTAÇAO RESPONSAVEL POR TORNAR A CLASSE "RESPONSAVEL PELA SEGURANÇA"
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JWTUtil jWTUtil;
-
+	
+	///RESPOSAVEIS POR QUAIS DADOS SERÃO ACESSADOS PELO PUBLICO
 	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
 
 	private static final String[] PUBLIC_MATCHERS_GET = {
@@ -47,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 			"/clientes", "/auth/forgot/**" };
 
+	///AUTORIZAR REQUISIÇÕES
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -63,12 +65,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 	}
-
+	
+	//ENCRIPITAR A SENHA DO USUARIO NO BANCO DE DADOS
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(BCryptPasswordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
+	//CONFIGURANÇÃO DE CORS
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
@@ -78,8 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return source;
 	}
 
+	
 	@Bean
-	public BCryptPasswordEncoder BCryptPasswordEncoder() {
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 

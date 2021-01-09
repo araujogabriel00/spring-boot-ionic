@@ -16,6 +16,7 @@ import com.workshop.entitites.Cliente;
 import com.workshop.exceptions.FieldMessage;
 import com.workshop.repositories.ClienteRepo;
 
+//ATUALIZAR CLIENTE E EMAIL
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 
 	@Autowired

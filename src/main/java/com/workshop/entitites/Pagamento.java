@@ -19,7 +19,7 @@ import com.workshop.enums.EstadoPagamento;
 @Inheritance(strategy = InheritanceType.JOINED) // Mapeamento herança
 @Table(name = "pagamento")
 //ADICIONA UM CAMPO QUE TERÁ O NOME TYPE
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY,property = "@type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY,property = "@type")//PERMITIR QUE UMA SUBCLASSE SEJA INSTACIADA A PARTIR DE DADOS JSON
 public abstract class Pagamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;

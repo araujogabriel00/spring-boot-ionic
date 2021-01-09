@@ -2,7 +2,8 @@ package com.workshop.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//RESPONSAVEL PELOS ERROS DE VALIDAÇÃO
+//MOSTRA EM QUAL MOMENTO FOI O ERRO, A MENSAGEM QUE O ERRO RETORNA, ONDE FOI O ERRO
 public class ValidationError extends StandardError {
 
 	private static final long serialVersionUID = 1L;

@@ -2,6 +2,7 @@ package com.workshop.dto;
 
 import java.io.Serializable;
 
+///DEFINE QUAIS AS CREDENCIAIS NECESSARIAS PARA FAZER LOGIN
 public class Credenciais implements Serializable {
 
 	private static final long serialVersionUID = 1L;

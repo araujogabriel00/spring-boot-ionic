@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.workshop.services.validation.ClienteInsert;
-
+//DEFINE QUAIS DADOS SERÃO NECESSARIOS PARA A INSERÇÃO DE UM NOVO CLIENTE NO BD
 @ClienteInsert
 public class ClienteNewDTO implements Serializable {
 

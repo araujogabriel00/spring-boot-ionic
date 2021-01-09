@@ -26,9 +26,9 @@ import com.workshop.entitites.Endereco;
 import com.workshop.enums.Perfil;
 import com.workshop.enums.TipoCliente;
 import com.workshop.exceptions.AuthorizationException;
+import com.workshop.exceptions.DataIntegrityException;
 import com.workshop.repositories.ClienteRepo;
 import com.workshop.repositories.EnderecoRepo;
-import com.workshop.resources.DataIntegrityException;
 import com.workshop.security.UserSS;
 
 ///RESPONSAVEL POR PASSAR AS CATEGORIAS AOS CONTROLADORES REST

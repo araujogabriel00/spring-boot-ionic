@@ -1,5 +1,6 @@
  package com.workshop.enums;
 ///Controle do codigo atribuido a cada valor
+//DEFINE SE O CLIENTE SER PESSOA FISICA OU PESSOAJURIDA
 public enum TipoCliente {
 
 	PESSOAFISICA(1, "PESSOA FISICA"), PESSOAJURIDA(2, "PESSOA JURIDA");

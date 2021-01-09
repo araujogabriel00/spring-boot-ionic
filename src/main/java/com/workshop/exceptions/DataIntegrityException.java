@@ -1,4 +1,4 @@
-package com.workshop.resources;
+package com.workshop.exceptions;
 
 public class DataIntegrityException extends RuntimeException{
 

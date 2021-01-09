@@ -22,7 +22,7 @@ import com.workshop.services.PedidoServ;
 ///DEVE CONTER AS ANOTAÇÕES RESTCONTROLLER E REQUESTMAPPING
 ///A FUNÇÃO RESPONSAVEL PELABUSCA DE CONTER A ANOTAÇÃO REQUESTMAPPING
 @RestController
-@RequestMapping(value = "/pedidos")
+@RequestMapping(value = "/pedidos")//COMO OS PEDIDOS SERÃO BUSCADOS
 public class PedidoResource {
 
 	@Autowired

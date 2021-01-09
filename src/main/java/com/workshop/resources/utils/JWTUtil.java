@@ -9,6 +9,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+
+//RESPONSAVEL POR DEFINIR A VALIDADE DO TOKEN DE ACESSO
 @Component
 public class JWTUtil {
 	@Value("${jwt.secret}")

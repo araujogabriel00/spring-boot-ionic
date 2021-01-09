@@ -15,7 +15,7 @@ import com.workshop.exceptions.FieldMessage;
 import com.workshop.repositories.ClienteRepo;
 import com.workshop.services.validation.utils.BR;
 
-//INICIALIZÃÇÃO
+//VALIDAÇÃO DE INSERÇÃO DE CLIENTE
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
 
 	@Autowired

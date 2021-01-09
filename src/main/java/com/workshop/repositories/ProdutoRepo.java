@@ -23,7 +23,7 @@ public interface ProdutoRepo extends JpaRepository<Produto, Integer> {
 	///COMO DEVERÁ SER FEITA A BUSCA
 	//NO SITE DE DOCS DO SPRING JÁ TEM OS NOMES DAS CONSULTAS
 	@Transactional(readOnly=true)
-	@Query("SELECT DISTINCT obj FROM Produto obj INNER JOIN obj.categorias cat WHERE obj.nome LIKE %:nome% AND cat IN :categorias")
+	@Query("SELECT DISTINCT obj FROM Produto obj INNER JOIN obj.categorias cat WHERE obj.nome LIKE %:nome% AND cat IN :categorias") 
 	Page<Produto> findDistinctByNomeContainingAndCategoriasIn(@Param("nome") String nome, @Param("categorias") List<Categoria> categorias, Pageable pageRequest);
 
 }

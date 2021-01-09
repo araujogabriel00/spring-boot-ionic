@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
+///QUANDO AS REQUISIÇÕES FOREM FEITAS NO POSTMAN PARA POSSÍVIS TESTE PERMITE SABER A LOCALIZAÇÃO DO CABEÇALHO
 @Component
 public class HeaderExposureFilter implements Filter {
 

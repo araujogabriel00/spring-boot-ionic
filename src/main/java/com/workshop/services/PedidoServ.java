@@ -47,14 +47,15 @@ public class PedidoServ {
 
 	@Autowired
 	private EmailService emailService;
-
+	
+	//ACHAR PEDIDO
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = pedidoRepo.findById(id);
 		return obj.orElse(null);
 
 	}
 
-
+	//INSERIR PEDIDO
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
@@ -83,6 +84,7 @@ public class PedidoServ {
 
 	}
 
+
 	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		UserSS user = UserService.authenticated();
 
@@ -96,5 +98,4 @@ public class PedidoServ {
 	}
 
 }
-// USAR TRANSACTIONAL NO INSERT
-// USAR PEDIDO SERVICE NÃO REPOSITORY
+

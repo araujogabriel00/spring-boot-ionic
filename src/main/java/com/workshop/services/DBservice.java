@@ -35,8 +35,7 @@ import com.workshop.repositories.ProdutoRepo;
 @Service
 public class DBservice {
 
-	/// TODAS AS CLASSE QUE NECESSITAM ALGUM TIPO DE SALVAMENTO PRECISAM DE UM
-	/// REPOSITORIO
+	/// TODAS AS CLASSE QUE NECESSITAM ALGUM TIPO DE SALVAMENTO PRECISAM DE UM REPOSITORIO
 	/// AS CLASSE REPOSITORIO DEVEM CONTER A ANOTAÇÃO @Autowired
 	/// CLASSE EXCLUSIVA PARA INSTACIAMENTO DOS OBJETOS NO BANCO DE DADOS
 
@@ -218,7 +217,7 @@ public class DBservice {
 		estadorepo.saveAll(Arrays.asList(est1, est2));
 		cidaderepo.saveAll(Arrays.asList(c1, c2, c3));
 
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377",
+		Cliente cli1 = new Cliente(null, "Maria Silva", "gabriel.araujos@sempreceub.com", "36378912377",
 				TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
 
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));

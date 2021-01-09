@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.workshop.dto.CategoriaDTO;
 import com.workshop.entitites.Categoria;
+import com.workshop.exceptions.DataIntegrityException;
 import com.workshop.repositories.CategoriaRepo;
-import com.workshop.resources.DataIntegrityException;
 
 ///RESPONSAVEL POR PASSAR AS CATEGORIAS AOS CONTROLADORES REST
 ///INSTACIAR REPOSITORIO DA CLASSE

@@ -7,6 +7,7 @@ import org.springframework.mail.SimpleMailMessage;
 import com.workshop.entitites.Cliente;
 import com.workshop.entitites.Pedido;
 
+
 public interface EmailService {
 
 	void sendOrderConfirmationEmail(Pedido pedido);
